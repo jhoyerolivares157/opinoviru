@@ -1,50 +1,188 @@
-<!DOCTYPE HTML>
-<!--
-	Hyperspace by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Opiñones de Viru Congelado</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		
-	<body class="is-preload">
-			<div id="wrapper">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virú Frozen te escucha</title>
+<link rel="icon" type="image/png" href="https://media.licdn.com/dms/image/v2/D4E0BAQGJM-x_f87jrA/company-logo_200_200/company-logo_200_200/0/1738592287854/virugroup_logo?e=2147483647&v=beta&t=E94E3gruEFF4Afs-fkCE9JlSRxadXW20YBD6O_GKkGE">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-				<!-- Intro -->
-					<section id="intro" class="wrapper style1 fullscreen fade-up">
-						<div class="inner">
-							<h1>OpinoViru</h1>
-							<p>Viru te escucha. Tu opinion es clave: Deja tus sugerencias y reclamos con confianza.</a>.</p>
-							<ul class="actions">
-								<li><a href="https://docs.google.com/forms/d/e/1FAIpQLSc7XH2sVxMCgI6VnXacoqItnhEglkO1gn2B0uFvab61gCROqA/viewform?usp=dialog" class="button scrolly">OPINAR</a></li>
-							</ul>
-						</div>
-					</section>
+<style>
+:root{
+--verde-principal:#4CAF50;
+--verde-secundario:#43A047;
+--verde-oscuro:#1B5E20;
+}
 
-				
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
 
-		<!-- Footer -->
-			<footer id="footer" class="wrapper style1-alt">
-				<div class="inner">
-					<ul class="menu">
-						<li>&copy; Olivares. Todos los derechos reservados.</li><li>Design: Olivares</li>
-					</ul>
-				</div>
-			</footer>
+body{
+min-height:100vh;
+background:
+linear-gradient(rgba(76,175,80,.85), rgba(67,160,71,.9)),
+url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1CUaZde8iOO3kp8eND2myfiX2IDqjf9PMsA&s") center/cover no-repeat fixed;
+}
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+/* PRELOADER */
+#preloader{
+position:fixed;
+inset:0;
+background:var(--verde-principal);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:9999;
+animation:fadeOut 1s ease 2s forwards;
+}
+.loader-logo{width:160px;animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes fadeOut{to{opacity:0;visibility:hidden}}
 
-	</body>
+.section{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
 
+.card{
+background:rgba(255,255,255,.15);
+backdrop-filter:blur(18px);
+border-radius:25px;
+padding:70px 45px;
+max-width:760px;
+text-align:center;
+box-shadow:0 25px 70px rgba(0,0,0,.3);
+transform:translateY(60px);
+opacity:0;
+transition:1s ease;
+}
+.card.visible{transform:translateY(0);opacity:1}
+
+.logo{width:200px;margin-bottom:30px}
+
+h1{font-size:2rem;margin-bottom:20px;color:white}
+
+.subtitle{font-size:1.1rem;margin-bottom:35px;color:#f1f8e9;line-height:1.6}
+
+.btn{
+padding:16px 45px;
+border-radius:50px;
+border:none;
+font-size:1.1rem;
+font-weight:600;
+cursor:pointer;
+background:white;
+color:var(--verde-oscuro);
+box-shadow:0 10px 30px rgba(0,0,0,.25);
+transition:.4s;
+margin-bottom:40px;
+}
+.btn:hover{transform:translateY(-6px) scale(1.05)}
+
+.values{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+
+.value-item{
+background:rgba(255,255,255,.08);
+padding:18px;
+border-radius:14px;
+color:#e8f5e9;
+border:1px solid rgba(255,255,255,.25);
+transition:.3s;
+}
+.value-item:hover{background:rgba(255,255,255,.18);transform:translateY(-3px)}
+
+/* MODAL */
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.7);
+display:flex;
+align-items:center;
+justify-content:center;
+opacity:0;
+pointer-events:none;
+transition:.4s;
+z-index:999;
+}
+.modal.active{opacity:1;pointer-events:auto}
+
+.modal-content{
+background:white;
+width:95%;
+max-width:700px;
+height:90vh;
+border-radius:18px;
+overflow:hidden;
+position:relative;
+animation:zoom .4s ease;
+}
+
+@keyframes zoom{from{transform:scale(.8)}to{transform:scale(1)}}
+
+.close{
+position:absolute;
+top:10px;
+right:15px;
+font-size:22px;
+cursor:pointer;
+font-weight:bold;
+color:#333;
+z-index:2;
+}
+
+iframe{width:100%;height:100%;border:none}
+
+@media(max-width:700px){
+.card{padding:50px 25px}
+h1{font-size:1.6rem}
+.values{grid-template-columns:1fr}
+.logo{width:160px}
+.btn{width:100%}
+}
+</style>
+</head>
+<body>
+
+<div id="preloader">
+<img class="loader-logo" src="https://virugroup.com/social-card.png">
+</div>
+
+<section class="section">
+<div class="card reveal">
+
+<img class="logo" src="https://s3.us-east-1.amazonaws.com/media.greatplacetowork.com/peru/best-workplaces-for-industries-in-peru/2025/viru/logo.png">
+
+<h1>Virú Frozen te escucha</h1>
+
+<p class="subtitle">
+Valoramos tu voz y tu experiencia. Tu opinión nos permite mejorar continuamente nuestros procesos, fortalecer nuestro equipo humano y garantizar un entorno laboral más eficiente, seguro y profesional.
+</p>
+
+<button class="btn" onclick="abrirModal()">Opinar</button>
+
+<div class="values">
+<div class="value-item">Compromiso con las personas</div>
+<div class="value-item">Excelencia operativa</div>
+<div class="value-item">Respeto y transparencia</div>
+<div class="value-item">Innovación continua</div>
+</div>
+
+</div>
+</section>
+
+<!-- MODAL FORM -->
+<div class="modal" id="modal">
+<div class="modal-content">
+<div class="close" onclick="cerrarModal()">✕</div>
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc7XH2sVxMCgI6VnXacoqItnhEglkO1gn2B0uFvab61gCROqA/viewform?embedded=true">Cargando…</iframe>
+</div>
+</div>
+
+<script>
+function abrirModal(){document.getElementById('modal').classList.add('active')}
+function cerrarModal(){document.getElementById('modal').classList.remove('active')}
+
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})
+},{threshold:.3});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+
+</body>
 </html>
